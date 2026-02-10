@@ -58,6 +58,23 @@ enum NotificationType {
   VERIFICATION
   BOOKING
   ROUTE
+  INCIDENT
+}
+
+enum IncidentType {
+  DRIVER_BEHAVIOR    // การปฏิบัติของคนขับที่ไม่ดี
+  SAFETY_ISSUE       // ปัญหาด้านความปลอดภัย
+  VEHICLE_ISSUE      // ปัญหาเกี่ยวกับรถ
+  PASSENGER_BEHAVIOR // พฤติกรรมของผู้โดยสารไม่ดี
+  HARASSMENT         // การ騷扰ตัวอักษร (ความหมาย: คำพูดหรือการประพฤติไม่สุภาพ)
+  OTHER              // อื่น ๆ
+}
+
+enum IncidentStatus {
+  PENDING    // รอประจำการ
+  REVIEWED   // ได้รับการตรวจสอบแล้ว
+  RESOLVED   // แก้ไขแล้ว
+  CLOSED     // ปิดคดีแล้ว
 }
 
 model User {
@@ -88,6 +105,8 @@ model User {
   notification          Notification[]
   createdRoutes         Route[]             @relation("DriverRoutes")
   bookings              Booking[]           @relation("PassengerBookings")
+  reportedIncidents     Incident[]          @relation("ReportedIncidents")
+  incidentsReportedAgainst Incident[]       @relation("IncidentsReportedAgainst")
 
   @@index([role])
   @@index([isActive])
@@ -210,4 +229,28 @@ model Booking {
   pickupLocation  Json          @db.Json
   dropoffLocation Json          @db.Json
   createdAt       DateTime      @default(now())
+}
+
+model Incident {
+  id                String          @id @default(cuid())
+  reporterId        String
+  reporter          User            @relation("ReportedIncidents", fields: [reporterId], references: [id], onDelete: Cascade)
+  reportedUserId    String?
+  reportedUser      User?           @relation("IncidentsReportedAgainst", fields: [reportedUserId], references: [id], onDelete: SetNull)
+  type              IncidentType    @default(OTHER)
+  title             String
+  description       String
+  attachmentUrl     String?
+  status            IncidentStatus  @default(PENDING)
+  adminNotes        String?
+  resolvedAt        DateTime?
+  closedAt          DateTime?
+  createdAt         DateTime        @default(now())
+  updatedAt         DateTime        @updatedAt
+
+  @@index([reporterId])
+  @@index([reportedUserId])
+  @@index([status])
+  @@index([type])
+  @@index([createdAt])
 }
