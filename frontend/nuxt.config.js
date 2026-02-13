@@ -2,11 +2,12 @@ import tailwindcssVite from "@tailwindcss/vite";
 
 export default defineNuxtConfig({
   compatibilityDate: "2025-05-15",
+  ssr: false,
   devtools: { enabled: true },
   runtimeConfig: {
     public: {
-      apiBase: "http://localhost:3000/api/",
-      // apiBase:"https://painamnae-backend.onrender.com/api/",
+      apiBase: process.env.NUXT_PUBLIC_API_BASE || "http://localhost:3000/api/",
+      // Example: set NUXT_PUBLIC_API_BASE=https://painamnae-backend.onrender.com/api/
       googleMapsApiKey: process.env.NUXT_PUBLIC_GOOGLE_MAPS_API_KEY || ""
     },
   },
@@ -24,7 +25,6 @@ export default defineNuxtConfig({
         { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700&display=swap' }
       ]
     },
-
   },
   vite: {
     plugins: [tailwindcssVite()],
@@ -37,4 +37,12 @@ export default defineNuxtConfig({
   build: {
     transpile: ['leaflet']
   },
+  // Disable Nitro prerender crawler to avoid prerender-time API calls
+  nitro: {
+    prerender: {
+      crawl: false,
+      // only keep the static error pages; do not prerender `/` which may call APIs
+      routes: ['/200.html', '/404.html']
+    }
+  }
 });
