@@ -185,7 +185,7 @@ definePageMeta({
 
 const { $api } = useNuxtApp()
 
-const { user: userCookie} = useAuth()
+const { user: userCookie, logout } = useAuth()
 
 
 
@@ -341,20 +341,17 @@ async function handleDeleteAccount() {
             'บัญชีของคุณถูกปิดแล้ว และจะถูกลบถาวรภายใน 90 วัน'
         );
 
-        // logout
-userCookie.value = null;
+        // logout via composable (clears cookie + redirects)
+        await logout();
 
-//🔥 เพิ่มตรงนี้
-if (process.client) {
-    localStorage.removeItem('accessToken');
-    localStorage.removeItem('refreshToken');
-    localStorage.removeItem('user');
-    sessionStorage.clear();
-}
-
-// redirect ไปหน้าแรก
-window.location.href = '/';
-//await logout()
+        // ensure any localStorage tokens are removed as well
+        if (process.client) {
+            localStorage.removeItem('accessToken');
+            localStorage.removeItem('refreshToken');
+            localStorage.removeItem('user');
+            localStorage.removeItem('token');
+            sessionStorage.clear();
+        }
 
 
 
