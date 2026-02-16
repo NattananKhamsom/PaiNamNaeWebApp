@@ -1,0 +1,1 @@
+import{$ as n,a0 as r,a1 as s,a2 as o}from"./DPSIKoxe.js";function i(a){var e;const t=a||n();return((e=t==null?void 0:t.ssrContext)==null?void 0:e.head)||(t==null?void 0:t.runWithContext(()=>{if(r())return s(o)}))}function c(a,t={}){const e=i(t.nuxt);if(e)return c(a,{head:e,...t})}export{c as u};
