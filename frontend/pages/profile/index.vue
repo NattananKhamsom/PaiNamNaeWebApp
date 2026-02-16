@@ -143,6 +143,25 @@
                                 </button>
                             </div>
                         </form>
+
+
+                        <!-- Danger Zone -->
+<div class="pt-10 mt-10 border-t border-red-200">
+    <h3 class="mb-4 text-lg font-semibold text-red-600">ลบบัญชีผู้ใช้</h3>
+    <p class="mb-4 text-sm text-gray-600">
+        การลบบัญชีจะปิดการใช้งานทันที และข้อมูลจะถูกลบถาวรภายใน 90 วัน
+    </p>
+
+    <button
+        @click="handleDeleteAccount"
+        :disabled="isDeleting"
+        class="px-6 py-3 font-medium text-white bg-red-600 rounded-md hover:bg-red-700 disabled:bg-red-400 disabled:cursor-not-allowed">
+        {{ isDeleting ? 'กำลังดำเนินการ...' : 'ลบบัญชีของฉัน' }}
+    </button>
+</div>
+
+
+
                     </div>
                 </main>
             </div>
@@ -165,12 +184,20 @@ definePageMeta({
 });
 
 const { $api } = useNuxtApp()
-const { user: userCookie } = useAuth()
+
+const { user: userCookie} = useAuth()
+
+
+
 const { toast } = useToast();
 
 const fileInput = ref(null)
 const previewUrl = ref('')
 const isLoading = ref(false)
+
+const isDeleting = ref(false)
+
+
 const showNameWarning = ref(false);
 
 const form = reactive({
@@ -294,6 +321,52 @@ async function handleProfileUpdate() {
         form.profilePictureFile = null;
     }
 }
+
+async function handleDeleteAccount() {
+    const confirmed = confirm(
+        'คุณแน่ใจหรือไม่ว่าต้องการลบบัญชี?\nบัญชีจะถูกปิดทันที และลบถาวรภายใน 90 วัน'
+    );
+
+    if (!confirmed) return;
+
+    isDeleting.value = true;
+
+    try {
+        await $api('/users/me', {
+            method: 'DELETE'
+        });
+
+        toast.success(
+            'ปิดบัญชีสำเร็จ',
+            'บัญชีของคุณถูกปิดแล้ว และจะถูกลบถาวรภายใน 90 วัน'
+        );
+
+        // logout
+userCookie.value = null;
+
+//🔥 เพิ่มตรงนี้
+if (process.client) {
+    localStorage.removeItem('accessToken');
+    localStorage.removeItem('refreshToken');
+    localStorage.removeItem('user');
+    sessionStorage.clear();
+}
+
+// redirect ไปหน้าแรก
+window.location.href = '/';
+//await logout()
+
+
+
+    } catch (err) {
+        const message = err.data?.message || 'ไม่สามารถลบบัญชีได้';
+        toast.error('เกิดข้อผิดพลาด', message);
+    } finally {
+        isDeleting.value = false;
+    }
+}
+
+
 </script>
 
 <style scoped>
