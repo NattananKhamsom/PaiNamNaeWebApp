@@ -1,6 +1,5 @@
 import { useCookie } from '#app'
 import { useRouter } from 'vue-router'
-import { watch } from 'vue'
 
 export function useAuth() {
   const { $api } = useNuxtApp()
@@ -9,18 +8,10 @@ export function useAuth() {
     maxAge: 60 * 60 * 24 * 7,
     path: '/',
     sameSite: 'lax',
-    secure: false,  // ตั้งเป็น false ก่อน (ถ้า HTTPS ให้เปลี่ยนเป็น true)
-    domain: '.cpkku.com'  // ลอง uncomment ถ้า cookie ยังไม่ work
+    secure: process.env.NODE_ENV === 'production'
   }
   const token = useCookie('token', cookieOpts)
   const user = useCookie('user', cookieOpts)
-  
-  // Debug: log token เพื่อตรวจสอบ
-  if (process.client) {
-    watch(() => token.value, (newVal) => {
-      console.log('[useAuth] token updated:', !!newVal)
-    })
-  }
   // const token = useCookie('token', { maxAge: 60 * 60 * 24 * 7, secure: true })
   // const user = useCookie('user', { maxAge: 60 * 60 * 24 * 7, secure: true })
   const router = useRouter()
