@@ -1,7 +1,10 @@
-export default defineNuxtRouteMiddleware((to) => {
+export default defineNuxtRouteMiddleware((to, from) => {
   if (process.server) return
-  const token = useCookie('token').value
-  if (!token && to.path !== '/login') {
-    return navigateTo('/login')  // ← ตรงนี้ทำให้ redirect กลับ login
+
+  const { token } = useAuth()
+  
+  // ถ้าไม่มี token และ path ไม่ใช่ login → redirect ไป login
+  if (!token.value && to.path !== '/login' && to.path !== '/register') {
+    return navigateTo('/login')
   }
 })
