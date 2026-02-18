@@ -1,5 +1,15 @@
 export default defineNuxtConfig({
-  ssr: false, // ปิด SSR ให้เป็น SPA
+  ssr: false,
+
+  app: {
+    baseURL: '/'
+  },
+
+  router: {
+    options: {
+      hashMode: true
+    }
+  },
 
   runtimeConfig: {
     public: {
@@ -8,6 +18,6 @@ export default defineNuxtConfig({
   },
 
   nitro: {
-    preset: 'static' // บอกให้ generate เป็น static
+    preset: 'static'
   }
 })
