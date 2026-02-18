@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 7.4.1 (Python 3.14.2 on darwin)" generated="2026-02-17T17:46:44.617611" rpa="false" schemaversion="5">
+<suite id="s1" name="Report Case" source="/Users/nap/Documents/Junior2/Software Engineering/PaiNamNaeWebApp/tests/report_case.robot">
+<test id="s1-t1" name="Driver Report Incident And Verify Status Flow" line="13">
+<kw name="Open Browser" owner="SeleniumLibrary">
+<msg time="2026-02-17T17:46:44.730891" level="INFO">Opening browser 'chrome' to base url 'http://localhost:3001/login'.</msg>
+<arg>${BASE_URL}/login</arg>
+<arg>${BROWSER}</arg>
+<doc>Opens a new browser instance to the optional ``url``.</doc>
+<status status="PASS" start="2026-02-17T17:46:44.730735" elapsed="2.726493"/>
+</kw>
+<kw name="Maximize Browser Window" owner="SeleniumLibrary">
+<doc>Maximizes current browser window.</doc>
+<status status="PASS" start="2026-02-17T17:46:47.460901" elapsed="0.317955"/>
+</kw>
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>id=identifier</arg>
+<arg>10s</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2026-02-17T17:46:47.779087" elapsed="0.022005"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-02-17T17:46:47.801550" level="INFO">Typing text 'driver@test.com' into text field 'id=identifier'.</msg>
+<arg>id=identifier</arg>
+<arg>${DRIVER_EMAIL}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-02-17T17:46:47.801288" elapsed="0.097154"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-02-17T17:46:47.898779" level="INFO">Typing text '123456' into text field 'xpath=//input[@type='password']'.</msg>
+<arg>xpath=//input[@type='password']</arg>
+<arg>${DRIVER_PASSWORD}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-02-17T17:46:47.898605" elapsed="0.065489"/>
+</kw>
+<kw name="Click Button" owner="SeleniumLibrary">
+<msg time="2026-02-17T17:46:47.964915" level="INFO">Clicking button 'xpath=//button[@type='submit']'.</msg>
+<arg>xpath=//button[@type='submit']</arg>
+<doc>Clicks the button identified by ``locator``.</doc>
+<status status="PASS" start="2026-02-17T17:46:47.964380" elapsed="0.080050"/>
+</kw>
+<kw name="Go To" owner="SeleniumLibrary">
+<msg time="2026-02-17T17:46:48.044913" level="INFO">Opening url 'http://localhost:3001/my-incidents'</msg>
+<arg>${BASE_URL}/my-incidents</arg>
+<doc>Navigates the current browser window to the provided ``url``.</doc>
+<status status="PASS" start="2026-02-17T17:46:48.044594" elapsed="0.120682"/>
+</kw>
+<kw name="Wait Until Page Contains" owner="SeleniumLibrary">
+<arg>My Reported Incidents</arg>
+<arg>10s</arg>
+<doc>Waits until ``text`` appears on the current page.</doc>
+<status status="PASS" start="2026-02-17T17:46:48.166473" elapsed="0.228961"/>
+</kw>
+<kw name="Element Should Be Visible" owner="SeleniumLibrary">
+<msg time="2026-02-17T17:46:48.405461" level="INFO">Element 'xpath=//*[contains(text(),'Report New Incident')]' is displayed.</msg>
+<arg>xpath=//*[contains(text(),'Report New Incident')]</arg>
+<doc>Verifies that the element identified by ``locator`` is visible.</doc>
+<status status="PASS" start="2026-02-17T17:46:48.395605" elapsed="0.009919"/>
+</kw>
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2026-02-17T17:46:48.405808" level="INFO">Clicking element 'xpath=//*[contains(text(),'Report New Incident')]'.</msg>
+<arg>xpath=//*[contains(text(),'Report New Incident')]</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-02-17T17:46:48.405686" elapsed="0.040965"/>
+</kw>
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>xpath=//input</arg>
+<arg>10s</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2026-02-17T17:46:48.446851" elapsed="0.221911"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-02-17T17:46:48.669322" level="INFO">Typing text 'Automation Test Incident' into text field 'xpath=(//input)[1]'.</msg>
+<arg>xpath=(//input)[1]</arg>
+<arg>${INCIDENT_TITLE}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-02-17T17:46:48.669055" elapsed="0.052107"/>
+</kw>
+<kw name="Run Keyword And Ignore Error" owner="BuiltIn">
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-02-17T17:46:48.722631" level="INFO">Typing text 'Test incident created by automation.' into text field 'xpath=//textarea'.</msg>
+<arg>xpath=//textarea</arg>
+<arg>${INCIDENT_DESC}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-02-17T17:46:48.722484" elapsed="0.042797"/>
+</kw>
+<arg>Input Text</arg>
+<arg>xpath=//textarea</arg>
+<arg>${INCIDENT_DESC}</arg>
+<doc>Runs the given keyword with the given arguments and ignores possible error.</doc>
+<status status="PASS" start="2026-02-17T17:46:48.721398" elapsed="0.043950"/>
+</kw>
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2026-02-17T17:46:48.765599" level="INFO">Clicking element 'xpath=//button[@type='submit']'.</msg>
+<arg>xpath=//button[@type='submit']</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-02-17T17:46:48.765467" elapsed="0.034424"/>
+</kw>
+<kw name="Wait Until Page Contains" owner="SeleniumLibrary">
+<msg time="2026-02-17T17:46:59.055437" level="INFO" html="true">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="selenium-screenshot-10.png"&gt;&lt;img src="selenium-screenshot-10.png" width="800px"&gt;&lt;/a&gt;</msg>
+<msg time="2026-02-17T17:46:59.056046" level="FAIL">Text 'My Reported Incidents' did not appear in 10 seconds.</msg>
+<arg>My Reported Incidents</arg>
+<arg>10s</arg>
+<doc>Waits until ``text`` appears on the current page.</doc>
+<status status="FAIL" start="2026-02-17T17:46:48.800117" elapsed="10.260630">Text 'My Reported Incidents' did not appear in 10 seconds.</status>
+</kw>
+<kw name="Page Should Contain" owner="SeleniumLibrary">
+<arg>${INCIDENT_TITLE}</arg>
+<doc>Verifies that current page contains ``text``.</doc>
+<status status="NOT RUN" start="2026-02-17T17:46:59.061359" elapsed="0.000030"/>
+</kw>
+<kw name="Run Keyword And Return Status" owner="BuiltIn">
+<var>${has_pending}</var>
+<arg>Page Should Contain</arg>
+<arg>Pending</arg>
+<doc>Runs the specified keyword and returns the status as a Boolean value.</doc>
+<status status="NOT RUN" start="2026-02-17T17:46:59.061506" elapsed="0.000016"/>
+</kw>
+<kw name="Run Keyword And Return Status" owner="BuiltIn">
+<var>${has_approved}</var>
+<arg>Page Should Contain</arg>
+<arg>Approved</arg>
+<doc>Runs the specified keyword and returns the status as a Boolean value.</doc>
+<status status="NOT RUN" start="2026-02-17T17:46:59.061602" elapsed="0.000011"/>
+</kw>
+<kw name="Run Keyword And Return Status" owner="BuiltIn">
+<var>${has_rejected}</var>
+<arg>Page Should Contain</arg>
+<arg>Rejected</arg>
+<doc>Runs the specified keyword and returns the status as a Boolean value.</doc>
+<status status="NOT RUN" start="2026-02-17T17:46:59.061664" elapsed="0.000010"/>
+</kw>
+<kw name="Should Be True" owner="BuiltIn">
+<arg>${has_pending} or ${has_approved} or ${has_rejected}</arg>
+<doc>Fails if the given condition is not true.</doc>
+<status status="NOT RUN" start="2026-02-17T17:46:59.061740" elapsed="0.000012"/>
+</kw>
+<kw name="Close Browser" owner="SeleniumLibrary">
+<doc>Closes the current browser.</doc>
+<status status="NOT RUN" start="2026-02-17T17:46:59.061807" elapsed="0.000011"/>
+</kw>
+<status status="FAIL" start="2026-02-17T17:46:44.730206" elapsed="14.331776">Text 'My Reported Incidents' did not appear in 10 seconds.</status>
+</test>
+<status status="FAIL" start="2026-02-17T17:46:44.618727" elapsed="14.443640"/>
+</suite>
+<statistics>
+<total>
+<stat pass="0" fail="1" skip="0">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat name="Report Case" id="s1" pass="0" fail="1" skip="0">Report Case</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>
