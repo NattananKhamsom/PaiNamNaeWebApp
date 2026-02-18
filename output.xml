@@ -1,0 +1,386 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 7.4.1 (Python 3.14.2 on win32)" generated="2026-02-18T23:37:18.786201" rpa="false" schemaversion="5">
+<suite id="s1" name="Test Report" source="D:\PaiNamNaeWebApp\test_report.robot">
+<test id="s1-t1" name="TC1: Passenger Submit Report Successfully" line="20">
+<kw name="Open Browser" owner="SeleniumLibrary">
+<msg time="2026-02-18T23:37:19.484094" level="INFO">Opening browser 'chrome' to base url 'http://localhost:3001/report-incident/'.</msg>
+<msg time="2026-02-18T23:37:20.517814" level="WARN">The chromedriver version (143.0.7499.169) detected in PATH at C:\ChromeForTesting\chromedriver-win64\chromedriver.exe might not be compatible with the detected chrome version (144.0.7559.133); currently, chromedriver 144.0.7559.133 is recommended for chrome 144.*, so it is advised to delete the driver in PATH and retry</msg>
+<arg>${URL}</arg>
+<arg>${BROWSER}</arg>
+<doc>Opens a new browser instance to the optional ``url``.</doc>
+<status status="PASS" start="2026-02-18T23:37:19.483295" elapsed="4.953117"/>
+</kw>
+<kw name="Maximize Browser Window" owner="SeleniumLibrary">
+<doc>Maximizes current browser window.</doc>
+<status status="PASS" start="2026-02-18T23:37:24.437727" elapsed="0.073726"/>
+</kw>
+<kw name="Set Selenium Speed" owner="SeleniumLibrary">
+<arg>0.7 seconds</arg>
+<doc>Sets the delay that is waited after each Selenium command.</doc>
+<status status="PASS" start="2026-02-18T23:37:24.512281" elapsed="0.000952"/>
+</kw>
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>${SELECT_TYPE}</arg>
+<arg>10s</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2026-02-18T23:37:24.513793" elapsed="2.392868"/>
+</kw>
+<kw name="Select From List By Label" owner="SeleniumLibrary">
+<msg time="2026-02-18T23:37:26.908029" level="INFO">Selecting options from selection list 'xpath=//select' by label Driver Behavior Issue.</msg>
+<arg>${SELECT_TYPE}</arg>
+<arg>Driver Behavior Issue</arg>
+<doc>Selects options from selection list ``locator`` by ``labels``.</doc>
+<status status="PASS" start="2026-02-18T23:37:26.907442" elapsed="7.893875"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-02-18T23:37:34.803039" level="INFO">Typing text 'คนขับขับรถเร็วและอันตราบ' into text field 'xpath=//input[@placeholder='Brief title of the incident']'.</msg>
+<arg>${INPUT_TITLE}</arg>
+<arg>คนขับขับรถเร็วและอันตราบ</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-02-18T23:37:34.802279" elapsed="2.293436"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-02-18T23:37:37.097365" level="INFO">Typing text 'พนักงานขับรถเร็วเกินกำหนดและพูดจาไม่สุภาพ ทำให้รู้สึกไม่ปลอดภัย' into text field 'xpath=//textarea'.</msg>
+<arg>${TEXTAREA_DETAIL}</arg>
+<arg>พนักงานขับรถเร็วเกินกำหนดและพูดจาไม่สุภาพ ทำให้รู้สึกไม่ปลอดภัย</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-02-18T23:37:37.096804" elapsed="2.315983"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-02-18T23:37:39.414484" level="INFO">Typing text 'Driver_001' into text field 'xpath=//input[contains(@placeholder,'User')]'.</msg>
+<arg>${INPUT_REPORT_AGAINST}</arg>
+<arg>Driver_001</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-02-18T23:37:39.413843" elapsed="2.235322"/>
+</kw>
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2026-02-18T23:37:41.651231" level="INFO">Clicking element 'xpath=//button[@type='submit']'.</msg>
+<arg>${SUBMIT_BUTTON}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-02-18T23:37:41.650544" elapsed="1.513581"/>
+</kw>
+<kw name="Wait Until Page Contains" owner="SeleniumLibrary">
+<msg time="2026-02-18T23:37:59.680964" level="INFO" html="true">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="selenium-screenshot-4.png"&gt;&lt;img src="selenium-screenshot-4.png" width="800px"&gt;&lt;/a&gt;</msg>
+<msg time="2026-02-18T23:37:59.681272" level="FAIL">Text 'reported successfully' did not appear in 15 seconds.</msg>
+<arg>reported successfully</arg>
+<arg>15s</arg>
+<doc>Waits until ``text`` appears on the current page.</doc>
+<status status="FAIL" start="2026-02-18T23:37:43.165618" elapsed="16.549664">Text 'reported successfully' did not appear in 15 seconds.</status>
+</kw>
+<kw name="Close Browser" owner="SeleniumLibrary" type="TEARDOWN">
+<doc>Closes the current browser.</doc>
+<status status="PASS" start="2026-02-18T23:37:59.716430" elapsed="3.006869"/>
+</kw>
+<doc>ทดสอบกรณีผู้โดยสารกรอกข้อมูลครบถ้วนและส่งรายงานสำเร็จ</doc>
+<status status="FAIL" start="2026-02-18T23:37:19.479158" elapsed="43.244753">Text 'reported successfully' did not appear in 15 seconds.</status>
+</test>
+<test id="s1-t2" name="TC2: Passenger did not fill in the Title" line="36">
+<kw name="Open Browser" owner="SeleniumLibrary">
+<msg time="2026-02-18T23:38:02.729693" level="INFO">Opening browser 'chrome' to base url 'http://localhost:3001/report-incident/'.</msg>
+<msg time="2026-02-18T23:38:02.937283" level="WARN">The chromedriver version (143.0.7499.169) detected in PATH at C:\ChromeForTesting\chromedriver-win64\chromedriver.exe might not be compatible with the detected chrome version (144.0.7559.133); currently, chromedriver 144.0.7559.133 is recommended for chrome 144.*, so it is advised to delete the driver in PATH and retry</msg>
+<arg>${URL}</arg>
+<arg>${BROWSER}</arg>
+<doc>Opens a new browser instance to the optional ``url``.</doc>
+<status status="PASS" start="2026-02-18T23:38:02.729209" elapsed="2.979366"/>
+</kw>
+<kw name="Set Selenium Speed" owner="SeleniumLibrary">
+<arg>0.5 seconds</arg>
+<doc>Sets the delay that is waited after each Selenium command.</doc>
+<status status="PASS" start="2026-02-18T23:38:05.709438" elapsed="0.000701"/>
+</kw>
+<kw name="Select From List By Index" owner="SeleniumLibrary">
+<msg time="2026-02-18T23:38:05.711060" level="INFO">Selecting options from selection list 'xpath=//select' by index 1.</msg>
+<arg>${SELECT_TYPE}</arg>
+<arg>1</arg>
+<doc>Selects options from selection list ``locator`` by ``indexes``.</doc>
+<status status="PASS" start="2026-02-18T23:38:05.710554" elapsed="5.155277"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-02-18T23:38:10.867139" level="INFO">Typing text 'กรอกข้อมูลครบแต่ลืมกรอก Title' into text field 'xpath=//textarea'.</msg>
+<arg>${TEXTAREA_DETAIL}</arg>
+<arg>กรอกข้อมูลครบแต่ลืมกรอก Title</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-02-18T23:38:10.866587" elapsed="1.652335"/>
+</kw>
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2026-02-18T23:38:12.520492" level="INFO">Clicking element 'xpath=//button[@type='submit']'.</msg>
+<arg>${SUBMIT_BUTTON}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-02-18T23:38:12.519935" elapsed="1.139222"/>
+</kw>
+<kw name="Page Should Not Contain" owner="SeleniumLibrary">
+<msg time="2026-02-18T23:38:15.207865" level="INFO">Current page does not contain text 'reported successfully'.</msg>
+<arg>reported successfully</arg>
+<doc>Verifies the current page does not contain ``text``.</doc>
+<status status="PASS" start="2026-02-18T23:38:13.660060" elapsed="1.548014"/>
+</kw>
+<kw name="Close Browser" owner="SeleniumLibrary" type="TEARDOWN">
+<doc>Closes the current browser.</doc>
+<status status="PASS" start="2026-02-18T23:38:15.208852" elapsed="2.644251"/>
+</kw>
+<doc>ทดสอบกรณีไม่กรอก Title (Browser ต้องดักด้วย required)</doc>
+<status status="PASS" start="2026-02-18T23:38:02.726341" elapsed="15.127402"/>
+</test>
+<test id="s1-t3" name="TC3: Passenger did not fill in the Description" line="46">
+<kw name="Open Browser" owner="SeleniumLibrary">
+<msg time="2026-02-18T23:38:17.857623" level="INFO">Opening browser 'chrome' to base url 'http://localhost:3001/report-incident/'.</msg>
+<msg time="2026-02-18T23:38:17.996527" level="WARN">The chromedriver version (143.0.7499.169) detected in PATH at C:\ChromeForTesting\chromedriver-win64\chromedriver.exe might not be compatible with the detected chrome version (144.0.7559.133); currently, chromedriver 144.0.7559.133 is recommended for chrome 144.*, so it is advised to delete the driver in PATH and retry</msg>
+<arg>${URL}</arg>
+<arg>${BROWSER}</arg>
+<doc>Opens a new browser instance to the optional ``url``.</doc>
+<status status="PASS" start="2026-02-18T23:38:17.857180" elapsed="2.636385"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-02-18T23:38:20.494819" level="FAIL">Keyword 'SeleniumLibrary.Input Text' expected 2 to 3 arguments, got 1.</msg>
+<arg>${INPUT_TITLE} คนขับขับรถเร็วและอันตราย</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="FAIL" start="2026-02-18T23:38:20.494313" elapsed="0.000604">Keyword 'SeleniumLibrary.Input Text' expected 2 to 3 arguments, got 1.</status>
+</kw>
+<kw name="Click Element" owner="SeleniumLibrary">
+<arg>${SUBMIT_BUTTON}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="NOT RUN" start="2026-02-18T23:38:20.495341" elapsed="0.000057"/>
+</kw>
+<kw name="Page Should Not Contain" owner="SeleniumLibrary">
+<arg>reported successfully</arg>
+<doc>Verifies the current page does not contain ``text``.</doc>
+<status status="NOT RUN" start="2026-02-18T23:38:20.495711" elapsed="0.000052"/>
+</kw>
+<kw name="Close Browser" owner="SeleniumLibrary" type="TEARDOWN">
+<doc>Closes the current browser.</doc>
+<status status="PASS" start="2026-02-18T23:38:20.496387" elapsed="2.661136"/>
+</kw>
+<doc>ทดสอบกรณีไม่กรอก Description</doc>
+<status status="FAIL" start="2026-02-18T23:38:17.855776" elapsed="5.302457">Keyword 'SeleniumLibrary.Input Text' expected 2 to 3 arguments, got 1.</status>
+</test>
+<test id="s1-t4" name="TC4: Passenger did not choose Incident Type" line="54">
+<kw name="Open Browser" owner="SeleniumLibrary">
+<msg time="2026-02-18T23:38:23.161941" level="INFO">Opening browser 'chrome' to base url 'http://localhost:3001/report-incident/'.</msg>
+<msg time="2026-02-18T23:38:23.297499" level="WARN">The chromedriver version (143.0.7499.169) detected in PATH at C:\ChromeForTesting\chromedriver-win64\chromedriver.exe might not be compatible with the detected chrome version (144.0.7559.133); currently, chromedriver 144.0.7559.133 is recommended for chrome 144.*, so it is advised to delete the driver in PATH and retry</msg>
+<arg>${URL}</arg>
+<arg>${BROWSER}</arg>
+<doc>Opens a new browser instance to the optional ``url``.</doc>
+<status status="PASS" start="2026-02-18T23:38:23.161596" elapsed="2.527333"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-02-18T23:38:25.690183" level="INFO">Typing text 'คนขับขับรถเร็วและอันตราย' into text field 'xpath=//input[@placeholder='Brief title of the incident']'.</msg>
+<arg>${INPUT_TITLE}</arg>
+<arg>คนขับขับรถเร็วและอันตราย</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-02-18T23:38:25.689672" elapsed="1.666302"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-02-18T23:38:27.357245" level="INFO">Typing text 'ลืมเลือกประเภทเหตุการณ์ใน Dropdown' into text field 'xpath=//textarea'.</msg>
+<arg>${TEXTAREA_DETAIL}</arg>
+<arg>ลืมเลือกประเภทเหตุการณ์ใน Dropdown</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-02-18T23:38:27.356758" elapsed="1.639712"/>
+</kw>
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2026-02-18T23:38:28.998028" level="INFO">Clicking element 'xpath=//button[@type='submit']'.</msg>
+<arg>${SUBMIT_BUTTON}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-02-18T23:38:28.997462" elapsed="1.104890"/>
+</kw>
+<kw name="Page Should Not Contain" owner="SeleniumLibrary">
+<msg time="2026-02-18T23:38:31.669426" level="INFO">Current page does not contain text 'reported successfully'.</msg>
+<arg>reported successfully</arg>
+<doc>Verifies the current page does not contain ``text``.</doc>
+<status status="PASS" start="2026-02-18T23:38:30.103698" elapsed="1.566057"/>
+</kw>
+<kw name="Close Browser" owner="SeleniumLibrary" type="TEARDOWN">
+<doc>Closes the current browser.</doc>
+<status status="PASS" start="2026-02-18T23:38:31.671214" elapsed="2.644215"/>
+</kw>
+<doc>ทดสอบกรณีไม่เลือกประเภทเหตุการณ์</doc>
+<status status="PASS" start="2026-02-18T23:38:23.160245" elapsed="11.155838"/>
+</test>
+<test id="s1-t5" name="TC5: Invalid Attachment URL Format" line="64">
+<kw name="Open Browser" owner="SeleniumLibrary">
+<msg time="2026-02-18T23:38:34.318900" level="INFO">Opening browser 'chrome' to base url 'http://localhost:3001/report-incident/'.</msg>
+<msg time="2026-02-18T23:38:34.443553" level="WARN">The chromedriver version (143.0.7499.169) detected in PATH at C:\ChromeForTesting\chromedriver-win64\chromedriver.exe might not be compatible with the detected chrome version (144.0.7559.133); currently, chromedriver 144.0.7559.133 is recommended for chrome 144.*, so it is advised to delete the driver in PATH and retry</msg>
+<arg>${URL}</arg>
+<arg>${BROWSER}</arg>
+<doc>Opens a new browser instance to the optional ``url``.</doc>
+<status status="PASS" start="2026-02-18T23:38:34.318513" elapsed="2.510955"/>
+</kw>
+<kw name="Select From List By Index" owner="SeleniumLibrary">
+<msg time="2026-02-18T23:38:36.830739" level="INFO">Selecting options from selection list 'xpath=//select' by index 1.</msg>
+<arg>${SELECT_TYPE}</arg>
+<arg>1</arg>
+<doc>Selects options from selection list ``locator`` by ``indexes``.</doc>
+<status status="PASS" start="2026-02-18T23:38:36.830171" elapsed="5.164175"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-02-18T23:38:41.995848" level="INFO">Typing text 'Test URL Format' into text field 'xpath=//input[@placeholder='Brief title of the incident']'.</msg>
+<arg>${INPUT_TITLE}</arg>
+<arg>Test URL Format</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-02-18T23:38:41.995311" elapsed="1.653598"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-02-18T23:38:43.650881" level="INFO">Typing text 'รายละเอียดการทดสอบ URL' into text field 'xpath=//textarea'.</msg>
+<arg>${TEXTAREA_DETAIL}</arg>
+<arg>รายละเอียดการทดสอบ URL</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-02-18T23:38:43.649930" elapsed="1.633865"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-02-18T23:38:45.285339" level="INFO">Typing text 'invalid_link_format' into text field 'xpath=//input[@type='url']'.</msg>
+<arg>${INPUT_URL}</arg>
+<arg>invalid_link_format</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-02-18T23:38:45.284843" elapsed="1.646470"/>
+</kw>
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2026-02-18T23:38:46.933117" level="INFO">Clicking element 'xpath=//button[@type='submit']'.</msg>
+<arg>${SUBMIT_BUTTON}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-02-18T23:38:46.932476" elapsed="1.102023"/>
+</kw>
+<kw name="Page Should Not Contain" owner="SeleniumLibrary">
+<msg time="2026-02-18T23:38:49.590666" level="INFO">Current page does not contain text 'reported successfully'.</msg>
+<arg>reported successfully</arg>
+<doc>Verifies the current page does not contain ``text``.</doc>
+<status status="PASS" start="2026-02-18T23:38:48.035518" elapsed="1.555414"/>
+</kw>
+<kw name="Close Browser" owner="SeleniumLibrary" type="TEARDOWN">
+<doc>Closes the current browser.</doc>
+<status status="PASS" start="2026-02-18T23:38:49.592702" elapsed="2.677489"/>
+</kw>
+<doc>ทดสอบการกรอก URL ผิดรูปแบบ</doc>
+<status status="PASS" start="2026-02-18T23:38:34.317356" elapsed="17.953295"/>
+</test>
+<test id="s1-t6" name="TC6: Character Limit Constraint (Maxlength)" line="75">
+<kw name="Open Browser" owner="SeleniumLibrary">
+<msg time="2026-02-18T23:38:52.273466" level="INFO">Opening browser 'chrome' to base url 'http://localhost:3001/report-incident/'.</msg>
+<msg time="2026-02-18T23:38:52.401483" level="WARN">The chromedriver version (143.0.7499.169) detected in PATH at C:\ChromeForTesting\chromedriver-win64\chromedriver.exe might not be compatible with the detected chrome version (144.0.7559.133); currently, chromedriver 144.0.7559.133 is recommended for chrome 144.*, so it is advised to delete the driver in PATH and retry</msg>
+<arg>${URL}</arg>
+<arg>${BROWSER}</arg>
+<doc>Opens a new browser instance to the optional ``url``.</doc>
+<status status="PASS" start="2026-02-18T23:38:52.273094" elapsed="2.440171"/>
+</kw>
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2026-02-18T23:38:54.716025" level="INFO">${LONG_TEXT} = AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</msg>
+<var>${LONG_TEXT}</var>
+<arg>"A" * 110</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2026-02-18T23:38:54.714410" elapsed="0.001695"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-02-18T23:38:54.717388" level="INFO">Typing text 'AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' into text field 'xpath=//input[@placeholder='Brief title of the incident']'.</msg>
+<arg>${INPUT_TITLE}</arg>
+<arg>${LONG_TEXT}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-02-18T23:38:54.716707" elapsed="1.772460"/>
+</kw>
+<kw name="Get Element Attribute" owner="SeleniumLibrary">
+<msg time="2026-02-18T23:38:57.525546" level="INFO">${VALUE} = AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</msg>
+<var>${VALUE}</var>
+<arg>${INPUT_TITLE}</arg>
+<arg>value</arg>
+<doc>Returns the value of ``attribute`` from the element ``locator``.</doc>
+<status status="PASS" start="2026-02-18T23:38:56.489911" elapsed="1.035844"/>
+</kw>
+<kw name="Get Length" owner="BuiltIn">
+<msg time="2026-02-18T23:38:57.527877" level="INFO">Length is 100.</msg>
+<msg time="2026-02-18T23:38:57.528038" level="INFO">${LENGTH} = 100</msg>
+<var>${LENGTH}</var>
+<arg>${VALUE}</arg>
+<doc>Returns and logs the length of the given item as an integer.</doc>
+<status status="PASS" start="2026-02-18T23:38:57.526736" elapsed="0.001358"/>
+</kw>
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<msg time="2026-02-18T23:38:57.528781" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;class 'str'&gt;</msg>
+<arg>${LENGTH}</arg>
+<arg>100</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="PASS" start="2026-02-18T23:38:57.528419" elapsed="0.000459"/>
+</kw>
+<kw name="Close Browser" owner="SeleniumLibrary" type="TEARDOWN">
+<doc>Closes the current browser.</doc>
+<status status="PASS" start="2026-02-18T23:38:57.529253" elapsed="2.637143"/>
+</kw>
+<doc>ตรวจสอบขีดจำกัดตัวอักษร 100 ตัวใน Title</doc>
+<status status="PASS" start="2026-02-18T23:38:52.271797" elapsed="7.895056"/>
+</test>
+<test id="s1-t7" name="TC7: Character Limit Constraint (Maxlength)" line="84">
+<kw name="Open Browser" owner="SeleniumLibrary">
+<msg time="2026-02-18T23:39:00.170269" level="INFO">Opening browser 'chrome' to base url 'http://localhost:3001/report-incident/'.</msg>
+<msg time="2026-02-18T23:39:00.300414" level="WARN">The chromedriver version (143.0.7499.169) detected in PATH at C:\ChromeForTesting\chromedriver-win64\chromedriver.exe might not be compatible with the detected chrome version (144.0.7559.133); currently, chromedriver 144.0.7559.133 is recommended for chrome 144.*, so it is advised to delete the driver in PATH and retry</msg>
+<arg>${URL}</arg>
+<arg>${BROWSER}</arg>
+<doc>Opens a new browser instance to the optional ``url``.</doc>
+<status status="PASS" start="2026-02-18T23:39:00.169892" elapsed="2.511726"/>
+</kw>
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2026-02-18T23:39:02.683145" level="INFO">${LONG_TEXT} = AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA...</msg>
+<var>${LONG_TEXT}</var>
+<arg>"A" * 2010</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2026-02-18T23:39:02.682309" elapsed="0.000910"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-02-18T23:39:02.684054" level="INFO">Typing text 'AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' into text field 'xpath=//input[@placeholder='Brief title of the incident']'.</msg>
+<arg>${INPUT_TITLE}</arg>
+<arg>${LONG_TEXT}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-02-18T23:39:02.683639" elapsed="2.748782"/>
+</kw>
+<kw name="Get Element Attribute" owner="SeleniumLibrary">
+<msg time="2026-02-18T23:39:06.461803" level="INFO">${VALUE} = </msg>
+<var>${VALUE}</var>
+<arg>${TEXTAREA_DETAIL}</arg>
+<arg>value</arg>
+<doc>Returns the value of ``attribute`` from the element ``locator``.</doc>
+<status status="PASS" start="2026-02-18T23:39:05.433426" elapsed="1.028757"/>
+</kw>
+<kw name="Get Length" owner="BuiltIn">
+<msg time="2026-02-18T23:39:06.463812" level="INFO">Length is 0.</msg>
+<msg time="2026-02-18T23:39:06.463918" level="INFO">${LENGTH} = 0</msg>
+<var>${LENGTH}</var>
+<arg>${VALUE}</arg>
+<doc>Returns and logs the length of the given item as an integer.</doc>
+<status status="PASS" start="2026-02-18T23:39:06.463152" elapsed="0.000801"/>
+</kw>
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<msg time="2026-02-18T23:39:06.464585" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;class 'str'&gt;</msg>
+<msg time="2026-02-18T23:39:06.464762" level="FAIL">0 != 2000</msg>
+<arg>${LENGTH}</arg>
+<arg>2000</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="FAIL" start="2026-02-18T23:39:06.464268" elapsed="0.000655">0 != 2000</status>
+</kw>
+<kw name="Close Browser" owner="SeleniumLibrary" type="TEARDOWN">
+<doc>Closes the current browser.</doc>
+<status status="PASS" start="2026-02-18T23:39:06.465420" elapsed="2.756817"/>
+</kw>
+<doc>ตรวจสอบขีดจำกัดตัวอักษร 2000 ตัวใน Description</doc>
+<status status="FAIL" start="2026-02-18T23:39:00.168522" elapsed="9.054398">0 != 2000</status>
+</test>
+<status status="FAIL" start="2026-02-18T23:37:18.789163" elapsed="110.435703"/>
+</suite>
+<statistics>
+<total>
+<stat pass="4" fail="3" skip="0">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat name="Test Report" id="s1" pass="4" fail="3" skip="0">Test Report</stat>
+</suite>
+</statistics>
+<errors>
+<msg time="2026-02-18T23:37:20.517814" level="WARN">The chromedriver version (143.0.7499.169) detected in PATH at C:\ChromeForTesting\chromedriver-win64\chromedriver.exe might not be compatible with the detected chrome version (144.0.7559.133); currently, chromedriver 144.0.7559.133 is recommended for chrome 144.*, so it is advised to delete the driver in PATH and retry</msg>
+<msg time="2026-02-18T23:38:02.937283" level="WARN">The chromedriver version (143.0.7499.169) detected in PATH at C:\ChromeForTesting\chromedriver-win64\chromedriver.exe might not be compatible with the detected chrome version (144.0.7559.133); currently, chromedriver 144.0.7559.133 is recommended for chrome 144.*, so it is advised to delete the driver in PATH and retry</msg>
+<msg time="2026-02-18T23:38:17.996527" level="WARN">The chromedriver version (143.0.7499.169) detected in PATH at C:\ChromeForTesting\chromedriver-win64\chromedriver.exe might not be compatible with the detected chrome version (144.0.7559.133); currently, chromedriver 144.0.7559.133 is recommended for chrome 144.*, so it is advised to delete the driver in PATH and retry</msg>
+<msg time="2026-02-18T23:38:23.297499" level="WARN">The chromedriver version (143.0.7499.169) detected in PATH at C:\ChromeForTesting\chromedriver-win64\chromedriver.exe might not be compatible with the detected chrome version (144.0.7559.133); currently, chromedriver 144.0.7559.133 is recommended for chrome 144.*, so it is advised to delete the driver in PATH and retry</msg>
+<msg time="2026-02-18T23:38:34.443553" level="WARN">The chromedriver version (143.0.7499.169) detected in PATH at C:\ChromeForTesting\chromedriver-win64\chromedriver.exe might not be compatible with the detected chrome version (144.0.7559.133); currently, chromedriver 144.0.7559.133 is recommended for chrome 144.*, so it is advised to delete the driver in PATH and retry</msg>
+<msg time="2026-02-18T23:38:52.401483" level="WARN">The chromedriver version (143.0.7499.169) detected in PATH at C:\ChromeForTesting\chromedriver-win64\chromedriver.exe might not be compatible with the detected chrome version (144.0.7559.133); currently, chromedriver 144.0.7559.133 is recommended for chrome 144.*, so it is advised to delete the driver in PATH and retry</msg>
+<msg time="2026-02-18T23:39:00.300414" level="WARN">The chromedriver version (143.0.7499.169) detected in PATH at C:\ChromeForTesting\chromedriver-win64\chromedriver.exe might not be compatible with the detected chrome version (144.0.7559.133); currently, chromedriver 144.0.7559.133 is recommended for chrome 144.*, so it is advised to delete the driver in PATH and retry</msg>
+</errors>
+</robot>
