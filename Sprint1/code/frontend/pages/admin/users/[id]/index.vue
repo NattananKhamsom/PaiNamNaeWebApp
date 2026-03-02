@@ -262,7 +262,7 @@ const BLACKLIST_CATEGORIES = {
         { id: 'D4', label: 'ใช้ยานพาหนะไม่ตรงกับที่ลงทะเบียน' },
         { id: 'D5', label: 'ปฏิเสธผู้โดยสารอย่างไร้เหตุผลบ่อยครั้ง' },
     ],
-    USER: [
+    PASSENGER: [
         { id: 'U1', label: 'ก่อกวน / ทำลายทรัพย์สินในรถ' },
         { id: 'U2', label: 'ค้างชำระค่าบริการ / เรียกแล้วไม่มา' },
         { id: 'U3', label: 'ใช้คำพูดไม่สุภาพ / ดูหมิ่นคนขับ' },
@@ -329,24 +329,25 @@ async function confirmBlacklist() {
         const token = useCookie('token')?.value || localStorage.getItem('token')
         const fullReason = `[${blacklistCategory.value}] ${blacklistReason.value}`
 
+        // ส่งการ blacklist ให้ API
         await $fetch(`/users/admin/${user.value.id}/status`, {
             baseURL: config.public.apiBase,
             method: 'PATCH',
             headers: { Authorization: `Bearer ${token}` },
             body: { 
+                isActive: false,
                 isBlacklisted: true,
                 blacklistReason: fullReason
             }
         })
         
-        // Sync UI
+        // Sync UI Local State
         user.value.isBlacklisted = true
+        user.value.isActive = false
         user.value.blacklistReason = fullReason
-        user.value.isVerified = false
         
-        toast.success('Blacklist สำเร็จ', 'ระบบได้ระงับการเข้าถึงและล็อกข้อมูลสำคัญเรียบร้อยแล้ว')
+        toast.success('Blacklist สำเร็จ', 'ระบบได้ระงับการเข้าถึงและล็อกข้อมูลเรียบร้อยแล้ว')
         
-        // Clear Form
         blacklistCategory.value = ''
         blacklistReason.value = ''
     } catch (err) {
@@ -369,12 +370,14 @@ async function unblacklistUser() {
             method: 'PATCH',
             headers: { Authorization: `Bearer ${token}` },
             body: { 
+                isActive: true, // เปิดการใช้งานกลับมา
                 isBlacklisted: false,
                 blacklistReason: ''
             }
         })
 
         user.value.isBlacklisted = false
+        user.value.isActive = true
         user.value.blacklistReason = ''
         toast.success('คืนสถานะสำเร็จ', 'ผู้ใช้สามารถกลับเข้าใช้งานระบบได้ตามปกติแล้ว')
     } catch (err) {

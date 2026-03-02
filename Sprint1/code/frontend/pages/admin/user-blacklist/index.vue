@@ -1,96 +1,112 @@
 <template>
-    <div class="">
+    <div class="min-h-screen bg-gray-50">
         <AdminHeader />
         <AdminSidebar />
 
-        <main id="main-content" class="main-content mt-16 ml-0 lg:ml-[280px] p-6 text-gray-800">
+        <main id="main-content" class="main-content mt-16 ml-0 lg:ml-[280px] p-6 transition-all duration-300">
             <div class="mx-auto max-w-8xl">
-                <!-- Header -->
-                <div class="mb-8 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-                    <div>
-                        <div class="flex items-center gap-2 text-red-600 mb-1">
-                            <NuxtLink to="/admin/users" class="hover:underline flex items-center gap-1 text-gray-500 text-sm">
-                                <i class="fa-solid fa-arrow-left"></i> กลับไปหน้ารวม
-                            </NuxtLink>
-                        </div>
-                        <h1 class="text-2xl font-bold text-gray-800 flex items-center gap-2">
-                            <i class="fa-solid fa-user-slash text-red-600"></i> รายชื่อที่ถูกระงับการใช้งาน (Blacklisted)
-                        </h1>
-                        <p class="text-sm text-gray-500">จัดการและตรวจสอบรายชื่อผู้ที่ถูก Blacklist ออกจากระบบ</p>
-                    </div>
-                </div>
-
-                <!-- Stats Summary -->
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-                    <div class="bg-white p-6 rounded-xl border border-red-100 flex items-center gap-4 shadow-sm">
-                        <div class="h-12 w-12 bg-red-50 rounded-lg flex items-center justify-center text-red-600">
-                            <i class="fa-solid fa-users text-xl"></i>
-                        </div>
+                <!-- Navigation & Title -->
+                <div class="mb-8">
+                    <NuxtLink to="/admin/users" class="inline-flex items-center gap-2 text-gray-500 hover:text-blue-600 transition-colors mb-4 font-medium">
+                        <i class="fa-solid fa-arrow-left"></i>
+                        <span>กลับไปหน้าจัดการผู้ใช้</span>
+                    </NuxtLink>
+                    <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
                         <div>
-                            <p class="text-sm text-gray-500 font-medium">รวมผู้ถูกระงับ</p>
-                            <h3 class="text-2xl font-bold">{{ blacklistedUsers.length }} คน</h3>
+                            <h1 class="text-2xl font-bold text-gray-800 flex items-center gap-3">
+                                <span class="p-2 bg-red-100 text-red-600 rounded-lg shadow-sm">
+                                    <i class="fa-solid fa-user-slash"></i>
+                                </span>
+                                รายชื่อผู้ใช้ที่ถูกระงับ (Blacklist)
+                            </h1>
+                            <p class="text-gray-500 mt-1">รายการผู้ใช้ที่ไม่สามารถเข้าใช้งานระบบได้เนื่องจากทำผิดกฎ</p>
+                        </div>
+                        <div class="bg-white px-5 py-3 rounded-xl border border-gray-200 shadow-sm flex items-center gap-4">
+                            <div class="text-right">
+                                <span class="text-xs font-semibold text-gray-400 uppercase">จำนวนทั้งหมด</span>
+                                <div class="text-2xl font-bold text-red-600 line-height-1">{{ blacklistedUsers.length }}</div>
+                            </div>
+                            <div class="h-10 w-[1px] bg-gray-100"></div>
+                            <button @click="fetchBlacklisted" class="p-2 text-gray-400 hover:text-blue-600 transition-colors" title="โหลดข้อมูลใหม่">
+                                <i class="fa-solid fa-rotate" :class="{ 'fa-spin': isLoading }"></i>
+                            </button>
                         </div>
                     </div>
                 </div>
 
-                <!-- Blacklist Table -->
-                <div class="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden">
-                    <div v-if="isLoading" class="p-20 flex flex-col items-center justify-center gap-4">
-                        <div class="animate-spin rounded-full h-12 w-12 border-4 border-red-600 border-t-transparent"></div>
-                        <p class="text-gray-500 animate-pulse">กำลังโหลดข้อมูล...</p>
+                <!-- Error Alert -->
+                <div v-if="errorMsg" class="mb-6 p-4 bg-red-50 border-l-4 border-red-500 text-red-700 flex items-center justify-between rounded-r-lg">
+                    <div class="flex items-center gap-3">
+                        <i class="fa-solid fa-circle-exclamation text-xl"></i>
+                        <p class="font-medium">{{ errorMsg }}</p>
+                    </div>
+                    <button @click="fetchBlacklisted" class="text-sm underline hover:no-underline">ลองใหม่อีกครั้ง</button>
+                </div>
+
+                <!-- Table Content -->
+                <div class="bg-white border border-gray-200 rounded-xl shadow-sm overflow-hidden min-h-[400px]">
+                    <!-- Loading State -->
+                    <div v-if="isLoading" class="flex flex-col items-center justify-center p-24">
+                        <div class="w-12 h-12 border-4 border-blue-100 border-t-blue-600 rounded-full animate-spin mb-4"></div>
+                        <p class="text-gray-500 font-medium">กำลังดึงข้อมูลรายชื่อสีดำ...</p>
                     </div>
 
-                    <div v-else-if="blacklistedUsers.length === 0" class="p-20 text-center">
-                        <div class="bg-gray-50 h-20 w-20 rounded-full flex items-center justify-center mx-auto mb-4 text-gray-400">
-                            <i class="fa-solid fa-user-check text-3xl"></i>
+                    <!-- Empty State -->
+                    <div v-else-if="blacklistedUsers.length === 0" class="flex flex-col items-center justify-center p-24 text-center">
+                        <div class="w-20 h-20 bg-gray-50 rounded-full flex items-center justify-center mb-6">
+                            <i class="fa-solid fa-user-check text-4xl text-gray-300"></i>
                         </div>
-                        <h3 class="text-lg font-medium text-gray-800">ไม่พบรายชื่อผู้ถูกระงับ</h3>
-                        <p class="text-gray-500 max-w-xs mx-auto mt-1">ผู้ใช้งานทุกคนในระบบมีสถานะปกติในขณะนี้</p>
+                        <h3 class="text-xl font-bold text-gray-900 mb-2">ไม่พบรายชื่อที่ถูกระงับ</h3>
+                        <p class="text-gray-500 max-w-xs mx-auto">ขณะนี้ไม่มีผู้ใช้งานรายใดถูกใส่ชื่อใน Blacklist ระบบทำงานเป็นปกติ</p>
                     </div>
 
+                    <!-- Data Table -->
                     <div v-else class="overflow-x-auto">
-                        <table class="w-full text-left border-collapse">
+                        <table class="min-w-full divide-y divide-gray-100">
                             <thead>
-                                <tr class="bg-gray-50 border-bottom border-gray-200">
-                                    <th class="px-6 py-4 text-xs font-semibold text-gray-600 uppercase tracking-wider">ผู้ใช้งาน</th>
-                                    <th class="px-6 py-4 text-xs font-semibold text-gray-600 uppercase tracking-wider">เหตุผล/วันที่ระงับ</th>
-                                    <th class="px-6 py-4 text-xs font-semibold text-gray-600 uppercase tracking-wider text-center border-x border-gray-100">สถานะ</th>
-                                    <th class="px-6 py-4 text-xs font-semibold text-gray-600 uppercase tracking-wider text-right">การจัดการ</th>
+                                <tr class="bg-gray-50/50">
+                                    <th class="px-6 py-4 text-left text-[11px] font-bold text-gray-400 uppercase tracking-widest">ผู้ใช้งาน</th>
+                                    <th class="px-6 py-4 text-left text-[11px] font-bold text-gray-400 uppercase tracking-widest">เหตุผล/หมายเหตุ</th>
+                                    <th class="px-6 py-4 text-left text-[11px] font-bold text-gray-400 uppercase tracking-widest">ระงับเมื่อ</th>
+                                    <th class="px-6 py-4 text-right text-[11px] font-bold text-gray-400 uppercase tracking-widest">การจัดการ</th>
                                 </tr>
                             </thead>
-                            <tbody class="divide-y divide-gray-100">
-                                <tr v-for="user in blacklistedUsers" :key="user.id" class="hover:bg-gray-50/50 transition-colors">
+                            <tbody class="divide-y divide-gray-50">
+                                <tr v-for="user in blacklistedUsers" :key="user.id" class="hover:bg-red-50/20 transition-colors group">
                                     <td class="px-6 py-4">
                                         <div class="flex items-center gap-3">
-                                            <div class="h-10 w-10 rounded-full bg-gray-200 overflow-hidden flex-shrink-0">
-                                                <img v-if="user.profilePicture" :src="user.profilePicture" class="h-full w-full object-cover">
-                                                <div v-else class="h-full w-full flex items-center justify-center bg-red-100 text-red-600 font-bold">
-                                                    {{ user.username?.charAt(0).toUpperCase() }}
-                                                </div>
+                                            <div class="relative">
+                                                <img :src="user.profilePicture || `https://ui-avatars.com/api/?name=${encodeURIComponent(user.username || 'U')}&background=fecaca&color=dc2626`" 
+                                                     class="w-11 h-11 rounded-full border border-gray-100 object-cover shadow-sm" />
+                                                <div class="absolute -bottom-1 -right-1 bg-red-500 text-white text-[8px] px-1 rounded-full border border-white">BLOCKED</div>
                                             </div>
                                             <div>
-                                                <div class="font-bold text-gray-900">{{ user.firstName }} {{ user.lastName }}</div>
-                                                <div class="text-xs text-gray-500">@{{ user.username }}</div>
+                                                <div class="text-sm font-bold text-gray-900 group-hover:text-red-700 transition-colors">
+                                                    {{ user.firstName }} {{ user.lastName }}
+                                                </div>
+                                                <div class="text-xs text-gray-400">{{ user.email || user.username }}</div>
                                             </div>
                                         </div>
                                     </td>
-                                    <td class="px-6 py-4 text-sm text-gray-600">
-                                        <div class="flex flex-col">
-                                            <span>ระงับโดยผู้ดูแลระบบ</span>
-                                            <span class="text-xs text-gray-400 italic">อัปเดตล่าสุด: {{ new Date(user.updatedAt).toLocaleDateString('th-TH') }}</span>
+                                    <td class="px-6 py-4">
+                                        <div class="inline-flex items-start gap-2 max-w-xs">
+                                            <i class="fa-solid fa-comment-dots text-gray-300 mt-1"></i>
+                                            <span class="text-sm text-gray-600 italic">
+                                                {{ user.blacklistReason || 'ไม่มีการระบุเหตุผล' }}
+                                            </span>
                                         </div>
                                     </td>
-                                    <td class="px-6 py-4 text-center border-x border-gray-50">
-                                        <span class="inline-flex items-center px-3 py-1 bg-red-600 text-white text-[10px] font-black rounded-md shadow-sm uppercase tracking-widest">
-                                            <i class="fa-solid fa-circle-exclamation mr-1 text-[8px]"></i> Blacklisted
-                                        </span>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <div class="text-sm text-gray-500">
+                                            {{ formatDate(user.updatedAt || user.createdAt) }}
+                                        </div>
+                                        <div class="text-[10px] text-gray-300 uppercase font-bold mt-0.5">Thai Buddhist Era</div>
                                     </td>
-                                    <td class="px-6 py-4 text-right">
-                                        <button 
-                                            @click="onUnblacklist(user)"
-                                            class="text-sm font-semibold text-blue-600 hover:text-blue-800 transition-colors bg-blue-50 hover:bg-blue-100 px-4 py-2 rounded-lg"
-                                        >
-                                            <i class="fa-solid fa-user-plus mr-1"></i> ปลดระงับ
+                                    <td class="px-6 py-4 text-right whitespace-nowrap">
+                                        <button @click="onUnblacklist(user)" 
+                                                class="inline-flex items-center gap-2 px-4 py-2 bg-white border border-green-500 text-green-600 text-sm font-bold rounded-lg hover:bg-green-500 hover:text-white transition-all shadow-sm active:scale-95">
+                                            <i class="fa-solid fa-user-check"></i>
+                                            ปลดระงับ
                                         </button>
                                     </td>
                                 </tr>
@@ -100,66 +116,165 @@
                 </div>
             </div>
         </main>
+
+        <!-- Action Loading Overlay -->
+        <div v-if="isActionLoading" class="fixed inset-0 bg-gray-900/40 backdrop-blur-[2px] z-[9999] flex items-center justify-center p-4">
+            <div class="bg-white px-8 py-6 rounded-2xl shadow-2xl flex flex-col items-center gap-4 max-w-xs w-full">
+                <div class="w-10 h-10 border-4 border-blue-100 border-t-blue-600 rounded-full animate-spin"></div>
+                <div class="text-center">
+                    <h4 class="font-bold text-gray-900">กำลังดำเนินการ</h4>
+                    <p class="text-sm text-gray-500 mt-1">โปรดรอสักครู่ ระบบกำลังปลดระงับผู้ใช้งาน...</p>
+                </div>
+            </div>
+        </div>
     </div>
 </template>
 
 <script setup>
-const blacklistedUsers = ref([])
-const isLoading = ref(false)
-const toast = useToast()
+import { ref, onMounted } from 'vue'
+import dayjs from 'dayjs'
+import 'dayjs/locale/th'
+import buddhistEra from 'dayjs/plugin/buddhistEra'
+import AdminHeader from '~/components/admin/AdminHeader.vue'
+import AdminSidebar from '~/components/admin/AdminSidebar.vue'
+import { useToast } from '~/composables/useToast'
 
-onMounted(() => {
-    fetchBlacklisted()
-})
+dayjs.locale('th')
+dayjs.extend(buddhistEra)
+
+const { toast } = useToast()
+const config = useRuntimeConfig()
+
+// States
+const isLoading = ref(true)
+const isActionLoading = ref(false)
+const blacklistedUsers = ref([])
+const errorMsg = ref('')
 
 async function fetchBlacklisted() {
     isLoading.value = true
+    errorMsg.value = ''
+    const token = useCookie('token').value
+    
     try {
-        const config = useRuntimeConfig()
-        const token = useCookie('token').value
+        // ลองดึงข้อมูลผู้ใช้ที่ติด Blacklist
+        let res = null
         
-        // ดึงเฉพาะคนที่ isActive: false ตาม Schema Prisma
-        const res = await $fetch('/users/admin', {
-            baseURL: config.public.apiBase,
-            params: { isActive: false },
-            headers: { Authorization: `Bearer ${token}` }
-        })
-        
-        blacklistedUsers.value = res?.data || []
-    } catch (e) {
-        toast.error('Error', 'ไม่สามารถโหลดรายชื่อได้จากเซิร์ฟเวอร์')
+        // วิธีที่ 1: ดึงแบบ isBlacklisted: true
+        try {
+            res = await $fetch('/users/admin', {
+                baseURL: config.public.apiBase,
+                headers: { Authorization: `Bearer ${token}` },
+                query: {
+                    isBlacklisted: 'true',
+                    limit: 100
+                }
+            })
+        } catch (err1) {
+            console.warn('Method 1 (isBlacklisted) failed, trying isActive=false...')
+            // วิธีที่ 2: ดึงแบบ isActive: false (เนื่องจาก blacklist จะ set isActive=false)
+            try {
+                res = await $fetch('/users/admin', {
+                    baseURL: config.public.apiBase,
+                    headers: { Authorization: `Bearer ${token}` },
+                    query: {
+                        isActive: 'false',
+                        limit: 100
+                    }
+                })
+            } catch (err2) {
+                console.error('Both methods failed:', err1, err2)
+                throw err1 // throw original error
+            }
+        }
+
+        // จุดสำคัญ: ตรวจสอบโครงสร้างข้อมูล
+        let rawData = []
+        if (Array.isArray(res)) {
+            rawData = res
+        } else if (res && res.data && Array.isArray(res.data)) {
+            rawData = res.data
+        } else if (res && res.data && typeof res.data === 'object' && !Array.isArray(res.data)) {
+            if (res.data.items && Array.isArray(res.data.items)) {
+                rawData = res.data.items
+            } else if (res.data.users && Array.isArray(res.data.users)) {
+                rawData = res.data.users
+            }
+        } else if (res && res.items && Array.isArray(res.items)) {
+            rawData = res.items
+        } else if (res && res.users && Array.isArray(res.users)) {
+            rawData = res.users
+        }
+
+        // กรองเฉพาะคนที่โดนแบนจริงๆ (isBlacklisted = true หรือ isActive = false ที่มี blacklistReason)
+        blacklistedUsers.value = rawData.filter(u => 
+            (u.isBlacklisted === true || u.isBlacklisted === 'true' || u.isBlacklisted === 1) ||
+            (u.isActive === false && u.blacklistReason) // คนที่ inactive และมี blacklistReason
+        ).sort((a, b) => new Date(b.updatedAt || b.createdAt) - new Date(a.updatedAt || a.createdAt))
+
+        console.log('API Response:', res)
+        console.log('Raw Data after extraction:', rawData)
+        console.log('Final Blacklist Data:', blacklistedUsers.value)
+
+    } catch (err) {
+        console.error('Fetch error:', err)
+        errorMsg.value = err.data?.message || 'ไม่สามารถโหลดรายชื่อได้ กรุณาตรวจสอบการเชื่อมต่อ API'
+        toast.error('โหลดข้อมูลล้มเหลว', errorMsg.value)
     } finally {
         isLoading.value = false
     }
 }
 
 async function onUnblacklist(user) {
-    if (!confirm(`ต้องการปลดระงับผู้ใช้ "${user.username}" ใช่หรือไม่?`)) return
+    // ใช้ confirm พื้นฐาน หรือ Modal ถ้าคุณมี
+    const confirmed = window.confirm(`ยืนยันการปลดระงับผู้ใช้: ${user.firstName} ${user.lastName}?`)
+    if (!confirmed) return
+
+    isActionLoading.value = true
+    const token = useCookie('token').value
     
     try {
-        const config = useRuntimeConfig()
-        const token = useCookie('token').value
-        
-        // ส่งคำขอปลดล็อคโดยเซ็ต isActive กลับเป็น true
         await $fetch(`/users/admin/${user.id}/status`, {
             baseURL: config.public.apiBase,
             method: 'PATCH',
             headers: { Authorization: `Bearer ${token}` },
-            body: { isActive: true }
+            body: { 
+                isBlacklisted: false,
+                isActive: true, // ปลดแล้วให้เปิดใช้งานอัตโนมัติ
+                blacklistReason: null
+            }
         })
-        
-        // อัปเดต UI โดยลบคนที่ปลดล็อคออกทันที
-        blacklistedUsers.value = blacklistedUsers.value.filter(u => u.id !== user.id)
-        toast.success('Success', `ปลดระงับคุณ ${user.username} เรียบร้อยแล้ว`)
-    } catch (e) {
-        toast.error('Error', 'ไม่สามารถปลดระงับได้ในขณะนี้')
+
+        toast.success('สำเร็จ', `ปลดระงับ ${user.username} เรียบร้อยแล้ว`)
+        // Refresh รายชื่อใหม่
+        await fetchBlacklisted()
+    } catch (err) {
+        console.error('Update error:', err)
+        toast.error('ผิดพลาด', err?.data?.message || 'ไม่สามารถปลดระงับได้ในขณะนี้')
+    } finally {
+        isActionLoading.value = false
     }
 }
+
+function formatDate(date) {
+    if (!date) return '-'
+    return dayjs(date).format('D MMM BBBB')
+}
+
+onMounted(() => {
+    fetchBlacklisted()
+})
+
+useHead({
+    title: 'Blacklist Management | Admin',
+    link: [{ rel: 'stylesheet', href: 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css' }]
+})
 </script>
 
 <style scoped>
 .main-content {
-    min-height: 100vh;
-    background-color: #f9fafb;
+    min-height: calc(100vh - 64px);
+    background-image: radial-gradient(#e5e7eb 1px, transparent 1px);
+    background-size: 20px 20px;
 }
 </style>
