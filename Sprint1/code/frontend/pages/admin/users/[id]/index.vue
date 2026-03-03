@@ -329,28 +329,29 @@ async function confirmBlacklist() {
         const token = useCookie('token')?.value || localStorage.getItem('token')
         const fullReason = `[${blacklistCategory.value}] ${blacklistReason.value}`
 
-        // ส่งการ blacklist ให้ API
+        // ส่งการ PATCH โดยระบุทุกฟิลด์ที่ต้องการเปลี่ยนให้ชัดเจน
+        // ตรวจสอบว่า API endpoint นี้รองรับการรับ isBlacklisted หรือไม่
         await $fetch(`/users/admin/${user.value.id}/status`, {
             baseURL: config.public.apiBase,
             method: 'PATCH',
             headers: { Authorization: `Bearer ${token}` },
             body: { 
-                isActive: false,
-                isBlacklisted: true,
+                isActive: false, 
+                isBlacklisted: true, // ตรวจสอบว่า Backend ใช้ชื่อฟิลด์นี้ตรงกัน
                 blacklistReason: fullReason
             }
         })
         
-        // Sync UI Local State
-        user.value.isBlacklisted = true
-        user.value.isActive = false
-        user.value.blacklistReason = fullReason
+        // หลังจาก API ตอบกลับสำเร็จ แนะนำให้เรียก fetchUser() อีกรอบ 
+        // เพื่อดึงข้อมูล "ความจริง" จาก Database มาแสดงผล ป้องกันปัญหา UI ไม่ตรงกับ DB
+        await fetchUser() 
         
         toast.success('Blacklist สำเร็จ', 'ระบบได้ระงับการเข้าถึงและล็อกข้อมูลเรียบร้อยแล้ว')
         
         blacklistCategory.value = ''
         blacklistReason.value = ''
     } catch (err) {
+        console.error('Blacklist Error:', err)
         toast.error('เกิดข้อผิดพลาด', err.data?.message || 'ไม่สามารถลงโทษได้ในขณะนี้')
     } finally {
         toggling.value = false

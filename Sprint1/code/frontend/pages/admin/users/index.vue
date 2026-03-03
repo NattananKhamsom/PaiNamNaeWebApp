@@ -154,6 +154,7 @@
                                             <div>
                                                 <div class="font-medium text-gray-900">
                                                     {{ u.firstName }} {{ u.lastName }}
+                                                <span v-if="u.isBlacklisted" class="ml-2 inline-block px-1 py-0.5 text-[10px] font-black text-white bg-red-600 rounded">BL</span>
                                                 </div>
                                                 <div class="text-xs text-gray-500">
                                                     {{ u.gender || '-' }}
