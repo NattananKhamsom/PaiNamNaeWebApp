@@ -11,7 +11,6 @@ const searchUsers = async (opts = {}) => {
         role,
         isActive,
         isVerified,
-        isBlacklisted,
         createdFrom,
         createdTo,
         sortBy = 'createdAt',
@@ -22,7 +21,6 @@ const searchUsers = async (opts = {}) => {
         ...(role && { role }),
         ...(typeof isActive === 'boolean' ? { isActive } : {}),
         ...(typeof isVerified === 'boolean' ? { isVerified } : {}),
-        ...(typeof isBlacklisted === 'boolean' ? { isBlacklisted } : {}),
         ...((createdFrom || createdTo) ? {
             createdAt: {
                 ...(createdFrom ? { gte: new Date(createdFrom) } : {}),
@@ -54,8 +52,6 @@ const searchUsers = async (opts = {}) => {
                 firstName: true, lastName: true, gender: true,
                 phoneNumber: true, profilePicture: true,
                 role: true, isVerified: true, isActive: true,
-                isBlacklisted: true,               // expose blacklist flag
-                blacklistReason: true,
                 createdAt: true, updatedAt: true,
             }
         })
