@@ -54,25 +54,25 @@
 
                             <div v-else class="p-4 sm:p-6 text-[15px]">
                                 <div class="w-full space-y-8">
-                                    <!-- ข้อมูลพื้นฐาน -->
+                                                                        <!-- ข้อมูลพื้นฐาน -->
                                     <section>
                                         <h3 class="mb-4 text-sm font-bold text-gray-700 border-l-4 border-blue-500 pl-2 uppercase tracking-wide">บัญชีและข้อมูลติดต่อ</h3>
                                         <div class="grid grid-cols-1 gap-5 sm:grid-cols-2">
                                             <div>
                                                 <label class="block mb-1.5 text-xs font-semibold text-gray-500 uppercase">อีเมล</label>
-                                                <div class="w-full px-3 py-2.5 border border-gray-200 rounded-md bg-gray-50 text-gray-900 font-medium italic">
+                                                <div class="w-full px-3 py-2.5 border border-gray-200 rounded-md bg-gray-50" :class="user.isBlacklisted ? 'text-red-600 font-bold' : 'text-gray-900 font-medium italic'">
                                                     {{ user.email }}
                                                 </div>
                                             </div>
                                             <div>
                                                 <label class="block mb-1.5 text-xs font-semibold text-gray-500 uppercase">ชื่อผู้ใช้</label>
-                                                <div class="w-full px-3 py-2.5 border border-gray-200 rounded-md bg-gray-50 text-gray-900">
+                                                <div class="w-full px-3 py-2.5 border border-gray-200 rounded-md bg-gray-50" :class="user.isBlacklisted ? 'text-red-600 font-bold' : 'text-gray-900'">
                                                     @{{ user.username }}
                                                 </div>
                                             </div>
                                             <div>
                                                 <label class="block mb-1.5 text-xs font-semibold text-gray-500 uppercase">เบอร์โทรศัพท์</label>
-                                                <div class="w-full px-3 py-2.5 border border-gray-200 rounded-md bg-gray-50" :class="user.isBlacklisted ? 'text-red-600 font-bold' : 'text-gray-900'">
+                                                <div class="w-full px-3 py-2.5 border border-gray-200 rounded-md bg-gray-50 text-gray-900">
                                                     {{ user.phoneNumber || '-' }}
                                                 </div>
                                             </div>
@@ -82,6 +82,46 @@
                                                     <span :class="user.role === 'DRIVER' ? 'text-purple-700' : 'text-blue-700'" class="font-bold">
                                                         {{ user.role }}
                                                     </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </section>
+
+                                    <!-- หลักฐาน -->
+                                    <section>
+                                        <h3 class="mb-4 text-sm font-bold text-gray-700 border-l-4 border-blue-500 pl-2 uppercase tracking-wide">หลักฐานการยืนยันตัวตน</h3>
+                                        <div class="grid grid-cols-1 gap-5 sm:grid-cols-2">
+                                            <div>
+                                                <label class="block mb-1.5 text-xs font-semibold text-gray-500 uppercase">เลขบัตรประชาชน</label>
+                                                <div class="w-full px-3 py-2.5 border border-gray-200 rounded-md bg-gray-50" :class="user.isBlacklisted ? 'text-red-600 font-bold' : 'text-gray-900'">
+                                                    {{ user.nationalIdNumber || '-' }}
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <label class="block mb-1.5 text-xs font-semibold text-gray-500 uppercase">ชื่อ-นามสกุลจริง</label>
+                                                <div class="w-full px-3 py-2.5 border border-gray-200 rounded-md bg-gray-50 font-medium">
+                                                    {{ user.firstName }} {{ user.lastName }}
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="grid grid-cols-1 gap-6 mt-6 sm:grid-cols-2">
+                                            <div>
+                                                <label class="block mb-2 text-xs font-semibold text-gray-500 uppercase">รูปบัตรประชาชน</label>
+                                                <div class="relative group cursor-zoom-in p-2 border-2 border-gray-200 border-dashed rounded-lg bg-gray-50 hover:bg-gray-100 transition-colors">
+                                                    <template v-if="user.nationalIdPhotoUrl">
+                                                        <img :src="user.nationalIdPhotoUrl" alt="National ID" class="rounded w-full object-cover max-h-56 shadow-sm" />
+                                                    </template>
+                                                    <div v-else class="py-12 text-center text-gray-400 italic text-sm">ไม่มีไฟล์รูปภาพ</div>
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <label class="block mb-2 text-xs font-semibold text-gray-500 uppercase">รูป Selfie คู่บัตร</label>
+                                                <div class="relative group cursor-zoom-in p-2 border-2 border-gray-200 border-dashed rounded-lg bg-gray-50 hover:bg-gray-100 transition-colors">
+                                                    <template v-if="user.selfiePhotoUrl">
+                                                        <img :src="user.selfiePhotoUrl" alt="Selfie" class="rounded w-full object-cover max-h-56 shadow-sm" />
+                                                    </template>
+                                                    <div v-else class="py-12 text-center text-gray-400 italic text-sm">ไม่มีไฟล์รูปภาพ</div>
                                                 </div>
                                             </div>
                                         </div>
@@ -155,11 +195,6 @@
                                             * เมื่อระงับบัญชี ระบบจะล็อกข้อมูลบัตรประชาชนและเบอร์โทรศัพท์ เพื่อป้องกันการสร้างบัญชีใหม่
                                         </p>
                                     </div>
-                                    <button @click="unblacklistUser" :disabled="toggling" 
-                                        class="w-full px-4 py-2.5 text-sm font-bold text-red-700 bg-white border-2 border-red-200 rounded-md hover:bg-red-50 hover:border-red-300 transition-all flex items-center justify-center gap-2">
-                                        <i v-if="toggling" class="fa-solid fa-circle-notch animate-spin"></i>
-                                        ยกเลิกการระงับบัญชี
-                                    </button>
                                 </div>
 
                                 <div v-else class="space-y-4">

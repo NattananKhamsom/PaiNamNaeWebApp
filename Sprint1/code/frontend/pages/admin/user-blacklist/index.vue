@@ -113,11 +113,10 @@
                     <div class="text-xs text-gray-400">เวลา {{ formatTime(user.updatedAt) }}</div>
                   </td>
                   <td class="px-6 py-4 text-right">
-                    <button @click="unblacklistUser(user)" 
-                            class="inline-flex items-center gap-2 px-4 py-2 bg-white border border-green-500 text-green-600 text-sm font-bold rounded-xl hover:bg-green-600 hover:text-white transition-all shadow-sm active:scale-95">
-                      <i class="fa-solid fa-user-check"></i>
-                      ปลดจาก Blacklist
-                    </button>
+                    <div class="inline-flex items-center gap-2 px-4 py-2 bg-gray-100 text-gray-500 text-sm font-bold rounded-xl cursor-not-allowed">
+                      <i class="fa-solid fa-ban"></i>
+                      ระงับถาวร
+                    </div>
                   </td>
                 </tr>
               </tbody>
