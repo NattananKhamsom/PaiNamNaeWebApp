@@ -26,9 +26,10 @@
               <span class="font-medium text-blue-600">สถานะจะอัปเดตในหน้าโปรไฟล์ของคุณ เมื่อการตรวจสอบเสร็จสิ้น</span>
             </p>
           </div>
-          </div>
+        </div>
 
-        <button @click="goToLogin" type="button" class="w-full py-3 bg-blue-600 text-white rounded-md font-medium hover:bg-blue-700 transition duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 mb-4">
+        <button @click="goToLogin" type="button"
+          class="w-full py-3 bg-blue-600 text-white rounded-md font-medium hover:bg-blue-700 transition duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 mb-4">
           ไปสู่หน้าเข้าสู่ระบบ
         </button>
       </div>
@@ -61,16 +62,37 @@ onMounted(() => {
 .success-animation {
   animation: checkmark 0.6s ease-in-out;
 }
+
 @keyframes checkmark {
-  0% { opacity: 0; transform: scale(0.5); }
-  50% { opacity: 1; transform: scale(1.1); }
-  100% { opacity: 1; transform: scale(1); }
+  0% {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+
+  50% {
+    opacity: 1;
+    transform: scale(1.1);
+  }
+
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
 }
+
 .fade-in {
   animation: fadeIn 0.8s ease-in-out 0.3s both;
 }
+
 @keyframes fadeIn {
-  0% { opacity: 0; transform: translateY(20px); }
-  100% { opacity: 1; transform: translateY(0); }
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 </style>

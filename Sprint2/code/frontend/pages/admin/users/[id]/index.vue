@@ -200,36 +200,22 @@
                                 <div v-else class="space-y-4">
                                     <div class="text-sm text-gray-600 bg-blue-50 p-3 rounded-md border border-blue-100 flex gap-2">
                                         <i class="fa-solid fa-circle-info text-blue-500 mt-0.5"></i>
-                                        <p>การ <b>Blacklist</b> จะตัดสิทธิ์การเข้าถึงทันที และบล็อกข้อมูลสำคัญของผู้ใช้ไม่ให้สมัครใหม่</p>
+                                        <p>หากผู้ใช้ทำผิดกฎ ให้ออก <b>ใบเตือน (Ticket)</b> ก่อน ระบบจะตัดสินใจ Blacklist อัตโนมัติตามจำนวนใบเตือน</p>
                                     </div>
 
-                                    <div>
-                                        <label class="block mb-1.5 text-xs font-bold text-gray-700 uppercase">ประเภทความผิด (ตาม Role: {{ user?.role }}) <span class="text-red-500">*</span></label>
-                                        <select v-model="blacklistCategory" class="w-full px-3 py-2.5 text-sm border border-gray-300 rounded-md mb-3 focus:ring-2 focus:ring-red-500 focus:border-red-500 outline-none">
-                                            <option value="">-- เลือกประเภทความผิด --</option>
-                                            <optgroup v-for="(group, role) in BLACKLIST_CATEGORIES" :key="role" :label="`หมวดหมู่ของ ${role}`" v-show="user?.role === role">
-                                                <option v-for="cat in group" :key="cat.id" :value="cat.label">
-                                                    {{ cat.label }}
-                                                </option>
-                                            </optgroup>
-                                            <option value="อื่นๆ">อื่นๆ (ระบุเพิ่มเติมด้านล่าง)</option>
-                                        </select>
-                                        
-                                        <label class="block mb-1.5 text-xs font-bold text-gray-700 uppercase">รายละเอียดเพิ่มเติม <span class="text-red-500">*</span></label>
-                                        <textarea v-model="blacklistReason" rows="4" 
-                                            class="w-full px-3 py-2 text-sm border border-gray-300 rounded-md focus:ring-2 focus:ring-red-500 focus:border-red-500 outline-none" 
-                                            placeholder="ระบุพฤติกรรมหรือเลขอ้างอิงหลักฐาน..."></textarea>
+                                    <div class="p-3 rounded-md bg-yellow-50 border border-yellow-200 text-yellow-800 text-xs space-y-1">
+                                        <p><i class="fa-solid fa-square text-yellow-400 mr-1"></i> <b>Yellow Card</b> × 1 = เตือน (ยังใช้งานได้)</p>
+                                        <p><i class="fa-solid fa-square text-yellow-400 mr-1"></i> <b>Yellow Card</b> × 2 = <span class="text-red-600 font-bold">Blacklist อัตโนมัติ</span></p>
+                                        <p><i class="fa-solid fa-square text-red-500 mr-1"></i> <b>Red Card</b> × 1 = <span class="text-red-600 font-bold">Blacklist ทันที</span></p>
                                     </div>
 
-                                    <button 
-                                        @click="confirmBlacklist" 
-                                        :disabled="!blacklistReason || !blacklistCategory || toggling"
-                                        class="w-full px-4 py-3 text-white font-bold rounded-md bg-red-600 hover:bg-red-700 transition-all shadow-md disabled:bg-gray-300 disabled:shadow-none flex items-center justify-center gap-2"
+                                    <NuxtLink 
+                                        :to="`/admin/users/${user?.id}/ticket`"
+                                        class="w-full px-4 py-3 text-white font-bold rounded-md bg-orange-500 hover:bg-orange-600 transition-all shadow-md flex items-center justify-center gap-2"
                                     >
-                                        <i v-if="toggling" class="fa-solid fa-circle-notch animate-spin"></i>
-                                        <i v-else class="fa-solid fa-user-xmark"></i>
-                                        ลงโทษ BLACKLIST ถาวร
-                                    </button>
+                                        <i class="fa-solid fa-ticket"></i>
+                                        ไปออกใบเตือน
+                                    </NuxtLink>
                                 </div>
                             </div>
                         </div>
